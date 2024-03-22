@@ -48,3 +48,15 @@ Thumbs.db
 *.mov
 *.wmv
 
+# VENV
+.venv
+
+# GUnicorn Socket & WSGI
+*.sock
+wsgi.py
+
+# Pytest Cache
+*.pytest_cache
+
+# Coverage Report
+*.coverage
