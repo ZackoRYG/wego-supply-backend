@@ -6,7 +6,14 @@ from database.db_models import CounterTable
 from flask_cors import cross_origin, CORS
 from sqlalchemy.sql import func
 
-@app.route('/get', methods=['GET'])
+def add_counter():
+    db.session.add(CounterTable(count=1))
+    db.session.commit()
+
+@app.route("/vehicle-request", methods=['GET'])
 @cross_origin()
-def get_message():
-    return 'OK', 200
+def vehicle_request():
+    add_counter()
+    print("backend hit")
+    request_body = request.get_json
+    return make_response("200 OK!", 200)
