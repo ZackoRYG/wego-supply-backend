@@ -55,3 +55,8 @@ Thumbs.db
 *.sock
 wsgi.py
 
+# Pytest Cache
+*.pytest_cache
+
+# Coverage Report
+*.coverage
