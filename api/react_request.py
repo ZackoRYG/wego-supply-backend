@@ -1,6 +1,6 @@
 import json
 from flask import Flask, request, jsonify
-from supply_backend.app import app, db
+from app import app, db
 from flask import request, make_response, jsonify
 from schema.db_models import CounterTable
 from flask_cors import cross_origin, CORS

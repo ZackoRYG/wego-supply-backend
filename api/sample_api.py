@@ -1,4 +1,4 @@
-from supply_backend.app import app
+from app import app
 from flask import request
 
 @app.route("/call-backend", methods=['POST'])

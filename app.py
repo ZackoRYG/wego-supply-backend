@@ -13,7 +13,7 @@ from schema.db_models import CounterTable
 with app.app_context():
     db.create_all()
 
-from sample_api import *
+from api.sample_api import *
 from api.vehicle_request import *
 from api.react_request import *
 
