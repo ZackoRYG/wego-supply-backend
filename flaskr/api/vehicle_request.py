@@ -10,7 +10,7 @@ def add_counter():
     db.session.add(CounterTable(count=1))
     db.session.commit()
 
-@app.route("/vehicle-request", methods=['GET'])
+@app.route("/vehicle-request", methods=['POST'])
 @cross_origin()
 def vehicle_request():
     add_counter()
