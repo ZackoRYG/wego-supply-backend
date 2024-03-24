@@ -2,14 +2,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import DB_CONNECTION, PORT
 
-from database.db_initialization import db
+from schema.db_initialization import db
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'{DB_CONNECTION}'
 db.init_app(app)
 
-from database.db_models import CounterTable
+from schema.db_models import CounterTable
 with app.app_context():
     db.create_all()
 
