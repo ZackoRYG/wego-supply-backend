@@ -13,7 +13,7 @@ def create_app() -> Flask:
     with app.app_context():
         db.create_all()
 
-    app.register_blueprint(vehicle_api, url_prefix = '/vehicle')
+    app.register_blueprint(vehicle_api, url_prefix = '/vehicles')
     return app
 
 if __name__ == "__main__":
