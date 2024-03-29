@@ -1,6 +1,6 @@
 # WeGo Demand Backend
 
-A brief description of your project.
+A guide to the WeGo demand Flask backend
 
 ## Table of Contents
 
