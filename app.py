@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import DB_CONNECTION, PORT
 from api.model.db_initialization import db
 from api.model.db_models import CounterTable
-from api.route.cs.vehicle import vehicle_api
+from api.route.cs.vehicle_route import vehicle_api
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -18,4 +18,4 @@ def create_app() -> Flask:
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True, port=PORT) 
+    app.run(debug=True, port=PORT)
