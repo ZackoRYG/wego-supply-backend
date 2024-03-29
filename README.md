@@ -59,6 +59,7 @@ The .env file is for all of our system-specific variables. That is, things that 
 ```
 +---api
 |   +---model
+|   +---object
 |   +---route
 |   |   +---cs
 |   |   \---plugins
@@ -67,16 +68,15 @@ The .env file is for all of our system-specific variables. That is, things that 
 \---test
 ```
 - *model* contains all of the database construction
+- *object* contains all of the logic specific to the code representation of an object
 - *route* contains all the blueprint initialization and route control
 - *service* contains any helper function that formats anything or manipulates data
 
-If you wanted to make a 'foo' endpoint, there would be 
+If you wanted to make a 'foo' endpoint, there would be:
 - a foo table defined in /model/db_models.py
 - a foo_service.py that has functions for fetching and manipulating data from the database
 - a foo_route.py in route defines the blueprint that has all of the route endpoints for a foo
-
-
-Any other logic specific to a 'foo' should be handled by a 'foo' object over in the actual common services repo
+- a foo object that handles all of the logic specific to a foo representation
 
 ### Naming endpoints
 Follow the beginning of [this guide](https://auth0.com/blog/best-practices-for-flask-api-development/) for a description of endpoint naming best practices
