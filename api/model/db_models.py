@@ -1,4 +1,4 @@
-from schema.db_initialization import db
+from api.model.db_initialization import db
 
 class CounterTable(db.Model):
 	__tablename__ = "counter_new"
