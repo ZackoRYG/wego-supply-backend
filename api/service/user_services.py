@@ -24,7 +24,3 @@ def create_user(User,Pass):
     #need to do this in person
     def authenticate(usr,ps):
         pass
-
-    #need to discuss this functionality with the team
-    def hash(usr,ps):
-        pass
