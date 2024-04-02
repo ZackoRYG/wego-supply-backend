@@ -8,7 +8,7 @@ from sqlalchemy.sql import func
 #Desc: Takes the username and passwork of the signup form and uses it to check via a number of credibility tests
 def create_user(User,Pass):
     #hasing both the username and password sent by the form so that I can check to see if their hashed values already exist in the table
-    hashed_userpass = hash(User,Pass)
+    hashed_userpass = (hash(User),hash(Pass))
     if (not user_exists(hashed_userpass[0])):
 
         #if the user doesn't already exist, we make the user
