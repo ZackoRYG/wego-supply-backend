@@ -1,4 +1,4 @@
-from supply.src.vehicle import Vehicle
+from api.object.vehicle import Vehicle
 
 class Fleet:
     def __init__(self):
