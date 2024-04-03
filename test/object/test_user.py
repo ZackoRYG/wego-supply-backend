@@ -1,5 +1,5 @@
 import pytest
-from supply.src.user import User 
+from api.object.user import User 
 
 @pytest.fixture
 def user():

@@ -1,5 +1,5 @@
 import pytest
-from supply.src.vehicle import Vehicle
+from api.object.vehicle import Vehicle
 
 @pytest.fixture
 def vehicle():

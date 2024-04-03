@@ -68,3 +68,9 @@ __pycache__
 # Configuration Files
 .env
 config.py
+
+# Test reports
+test-reports
+
+#SQLite Instances
+instance
