@@ -35,25 +35,21 @@ def authenticate(usr,ps):
     def check_user(username):
         # Username must be between 3 to 20 characters long
         # and contain only letters, numbers, and underscores
-        if 3 <= len(username) <= 20 and re.match(r'^\w+$', username):
-            return True
-        else:
-            return False
+        return (
+            (3 <= len(username) <= 20) and
+            (re.match(r'^\w+$', username) != None)
+            )
     def check_pass(password):
         # Password must be at least 8 characters long
         # and contain at least one digit, one uppercase letter,
         # one lowercase letter, and one special character
-        if len(password) <= 8:
-            return False
-        if not re.search(r'\d', password):
-            return False
-        if not re.search(r'[A-Z]', password):
-            return False
-        if not re.search(r'[a-z]', password):
-            return False
-        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-            return False
-        return True
+        return not (
+            (len(password) <= 8) or
+            (re.search(r'\d', password) == None) or
+            (re.search(r'[!@#$%^&*(),.?":{}|<>]', password) == None) or
+            (re.search(r'[A-Z]', password) == None) or
+            (re.search(r'[a-z]', password) == None)
+            )
 
     #Checks both the username and the password and returns if both of them are valid
     return check_user(usr) and check_pass(ps)
