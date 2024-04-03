@@ -1,4 +1,4 @@
-from supply.src.user import User
+from api.object.user import User
 
 class FleetManager:
     def __init__(self):
