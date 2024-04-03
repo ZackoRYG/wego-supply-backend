@@ -9,5 +9,15 @@ class CounterTable(db.Model):
 	def __repr__(self):
 		return f'<Count> {self.count}'
 	
+class UserAccountTable(db.Model):
+	__tablename__ = "user_account_new"
+
+	id = db.Column(db.Integer, primary_key=True)
+	username = db.Column(db.String(255), nullable=False)
+	password = db.Column(db.String(255), nullable=False)
+
+	def __repr__(self):
+		return f'<Username> {self.username} <Password> {self.password}'
+	
 # with app.app_context():
 #     db.create_all()

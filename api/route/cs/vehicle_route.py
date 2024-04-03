@@ -7,16 +7,6 @@ from flask_cors import cross_origin, CORS
 from api.service.vehicle_services import *
 
 vehicle_api = Blueprint('vehicle', __name__)
-'''
-def add_counter():
-    db.session.add(CounterTable(count=1))
-    db.session.commit()
-
-def sum_counter():
-    # sums "count" field of all values
-    # in the database
-    return int(db.session.query(func.sum(CounterTable.count)).scalar())
-'''
 @vehicle_api.route("/vehicle-request", methods=['POST'])
 @cross_origin()
 def vehicle_request():
