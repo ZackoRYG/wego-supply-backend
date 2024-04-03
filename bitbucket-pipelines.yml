@@ -21,6 +21,7 @@ pipelines:
       - step:
           name: Test Coverage
           script:
+            - pip install coverage
             - coverage exclude -f
               - "*config.py"
             - coverage run -m pytest
