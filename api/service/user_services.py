@@ -30,6 +30,10 @@ def user_exists(usr):
     existsTest = db.session.execute(db.select(UserAccountTable).filter_by(username=usr)).scalar()
     return (existsTest != None)
 
+def valid_login(usr, pw):
+    user = db.session.execute(db.select(UserAccountTable).filter_by(username=usr,password=pw)).scalar()
+    return (user != None)
+
 #need to do this in person
 def authenticate(usr,ps):
     def check_user(username):
