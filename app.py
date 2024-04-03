@@ -4,7 +4,7 @@ from config import DB_CONNECTION, PORT
 from api.model.db_initialization import db
 from api.model.db_models import CounterTable
 from api.route.cs.vehicle_route import vehicle_api
-from api.cs.login_api import login_api
+from api.route.cs.user_route import user_api
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -15,7 +15,7 @@ def create_app() -> Flask:
         db.create_all()
 
     app.register_blueprint(vehicle_api, url_prefix = '/vehicles')
-    app.register_blueprint(login_api, url_prefix = '/login')
+    app.register_blueprint(user_api, url_prefix = '/user')
     return app
 
 if __name__ == "__main__":

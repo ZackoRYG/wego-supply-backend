@@ -2,7 +2,6 @@ import json
 from http import HTTPStatus
 from flask import Flask, request, jsonify, Blueprint, make_response
 from api.model.db_initialization import db
-from api.model.db_models import CounterTable
 from flask_cors import cross_origin, CORS
 from api.service.user_services import *
 
@@ -22,3 +21,22 @@ def user_signup():
         return make_response("200 OK!", HTTPStatus.OK.value)
     else:
         return make_response("400 NO!", HTTPStatus.NOT_FOUND.value)
+
+@user_api.route("/user-login", methods=['POST'])
+@cross_origin()
+def login_request():
+    print("backend hit")
+
+    #extract json
+    request_body = request.get_json()
+
+    #extract username and password
+    username = request_body.get("username")
+    password = request_body.get("password")
+
+    if valid_login(username, password):
+        response = make_response("Login Success OK!", HTTPStatus.OK.value)
+    else:
+        response = make_response("User not found/Wrong Username or Password", HTTPStatus.OK.value)
+
+    return response
