@@ -4,7 +4,7 @@ from config import DB_CONNECTION, PORT
 from api.model.db_initialization import db
 from api.model.db_models import CounterTable
 from api.route.cs.vehicle_route import vehicle_api
-from api.cs.login import login_api
+from api.cs.login_api import login_api
 
 def create_app() -> Flask:
     app = Flask(__name__)
