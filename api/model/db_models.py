@@ -13,8 +13,8 @@ class UserAccountTable(db.Model):
 	__tablename__ = "user_account_new"
 
 	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(255), nullable=True)
-	password = db.Column(db.String(255), nullable=True)
+	username = db.Column(db.String(255), nullable=False)
+	password = db.Column(db.String(255), nullable=False)
 
 	def __repr__(self):
 		return f'<Username> {self.username} <Password> {self.password}'
