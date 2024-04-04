@@ -18,9 +18,13 @@ def user_signup():
     password = data.get("password")
     
     if create_user(username,password):
-        return make_response("200 OK!", HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "success",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
-        return make_response("400 NO!", HTTPStatus.NOT_FOUND.value)
+        response = make_response(jsonify({"status" : "fail",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
+
+    return response
 
 @user_api.route("/user-login", methods=['POST'])
 @cross_origin()
@@ -35,8 +39,8 @@ def login_request():
     password = request_body.get("password")
 
     if valid_login(username, password):
-        response = make_response("Login Success OK!", HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "success"}), HTTPStatus.OK.value)
     else:
-        response = make_response("User not found/Wrong Username or Password", HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "fail"}), HTTPStatus.OK.value)
 
     return response
