@@ -2,7 +2,7 @@ import json
 from http import HTTPStatus
 from flask import Flask, request, jsonify, Blueprint, make_response
 from api.model.db_initialization import db
-from api.model.db_models import CounterTable
+from api.model.db_models import VehicleTable
 from flask_cors import cross_origin, CORS
 from api.service.vehicle_services import *
 
