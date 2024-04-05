@@ -3,6 +3,7 @@ from api.model.db_models import UserAccountTable
 from sqlalchemy.sql import func
 import hashlib
 import re
+import pdb
 
 #Name: create_user
 #Expects: Two Strings. User and Pass correlating to the Username and Password of the signup
@@ -23,7 +24,7 @@ def create_user(User,Pass):
         db.session.commit()
         userCreated = True
 
-    return userCreated
+    return userCreated #userCreated
     
 #simple database query to see if the user already exists (we only need the user not the pass)
 def user_exists(usr):
@@ -31,7 +32,8 @@ def user_exists(usr):
     return (existsTest != None)
 
 def valid_login(usr, pw):
-    user = db.session.execute(db.select(UserAccountTable).filter_by(username=usr,password=pw)).scalar()
+    hashed_pass = hashlib.sha256(pw.encode()).hexdigest()
+    user = db.session.execute(db.select(UserAccountTable).filter_by(username=usr,password=hashed_pass)).scalar()
     return (user != None)
 
 #need to do this in person
@@ -48,7 +50,7 @@ def authenticate(usr,ps):
         # and contain at least one digit, one uppercase letter,
         # one lowercase letter, and one special character
         return not (
-            (len(password) <= 8) or
+            (len(password) < 8) or
             (re.search(r'\d', password) == None) or
             (re.search(r'[!@#$%^&*(),.?":{}|<>]', password) == None) or
             (re.search(r'[A-Z]', password) == None) or
@@ -56,4 +58,5 @@ def authenticate(usr,ps):
             )
 
     #Checks both the username and the password and returns if both of them are valid
+
     return check_user(usr) and check_pass(ps)

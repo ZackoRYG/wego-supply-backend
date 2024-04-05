@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, Blueprint, make_response
 from api.model.db_initialization import db
 from flask_cors import cross_origin, CORS
 from api.service.user_services import *
+from api.object.user import *
 
 user_api = Blueprint('user', __name__)
 @user_api.route("/user-signup", methods=['POST'])
@@ -16,14 +17,20 @@ def user_signup():
     # extract user & pass vals
     username = data.get("username")
     password = data.get("password")
+
+    request_user = User()
+    request_user.set_password(password)
+    request_user.set_username(username)
     
-    if create_user(username,password):
+    if create_user(request_user.get_username(),password):
         response = make_response(jsonify({"status" : "success",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
         response = make_response(jsonify({"status" : "fail",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
 
+    print(username)
+    print(password)
     return response
 
 @user_api.route("/user-login", methods=['POST'])
@@ -39,8 +46,10 @@ def login_request():
     password = request_body.get("password")
 
     if valid_login(username, password):
-        response = make_response(jsonify({"status" : "success"}), HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "success",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
-        response = make_response(jsonify({"status" : "fail"}), HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "fail",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
 
     return response
