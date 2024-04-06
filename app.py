@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import DB_CONNECTION, PORT
 from api.model.db_initialization import db
-from api.model.db_models import CounterTable
+from api.model.db_models import *
 from api.route.cs.vehicle_route import vehicle_api
 from api.route.cs.user_route import user_api
 
