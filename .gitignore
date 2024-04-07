@@ -73,4 +73,5 @@ config.py
 test-reports
 
 #SQLite Instances
-instance
+instance/*
+*.db

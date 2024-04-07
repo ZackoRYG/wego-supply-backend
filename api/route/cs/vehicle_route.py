@@ -26,7 +26,6 @@ def counter_return():
     request_body = request.get_json
     request.get()
 
-    vin = request_body.get('VIN')
     lon = request_body.get('veh_lon')
     lat = request_body.get('veh_lat')
     status = request_body.get('veh_status')

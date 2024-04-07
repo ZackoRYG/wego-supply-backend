@@ -29,8 +29,30 @@ def user_signup():
         response = make_response(jsonify({"status" : "fail",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
 
-    print(username)
-    print(password)
+    return response
+
+@user_api.route("/user-delete", methods=['DELETE'])
+@cross_origin()
+def delete_request():
+    print("backend hit")
+    # extract request json
+    data = request.get_json()
+
+    # extract user & pass vals
+    username = data.get("username")
+    password = data.get("password")
+
+    request_user = User()
+    request_user.set_password(password)
+    request_user.set_username(username)
+
+    if delete_user(request_user.get_username()):
+        response = make_response(jsonify({"status" : "success",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
+    else:
+        response = make_response(jsonify({"status" : "fail",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
+        
     return response
 
 @user_api.route("/user-login", methods=['POST'])
