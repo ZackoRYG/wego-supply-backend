@@ -26,8 +26,8 @@ def create_user(User,Pass):
 
     return userCreated #userCreated
 
-def delete_user(usr):
-    if user_exists(usr):
+def delete_user(usr,ps):
+    if valid_login(usr,ps):
         db.session.delete(db.session.query(UserAccountTable).filter(UserAccountTable.username==usr).one())
         db.session.commit()
         return True

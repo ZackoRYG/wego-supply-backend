@@ -46,7 +46,7 @@ def delete_request():
     request_user.set_password(password)
     request_user.set_username(username)
 
-    if delete_user(request_user.get_username()):
+    if delete_user(request_user.get_username(),password):
         response = make_response(jsonify({"status" : "success",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
