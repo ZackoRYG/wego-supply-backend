@@ -1,7 +1,7 @@
 import pytest #testing
 
-from supply.src.fleet import Fleet
-from supply.src.vehicle import Vehicle
+from api.object.fleet import Fleet
+from api.object.vehicle import Vehicle
 
 @pytest.fixture
 def fleet():
