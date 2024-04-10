@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, Blueprint, make_response
 from api.model.db_initialization import db
 from flask_cors import cross_origin, CORS
 from api.service.user_services import *
+from api.object.user import *
 
 user_api = Blueprint('user', __name__)
 @user_api.route("/user-signup", methods=['POST'])
@@ -16,11 +17,43 @@ def user_signup():
     # extract user & pass vals
     username = data.get("username")
     password = data.get("password")
+
+    request_user = User()
+    request_user.set_password(password)
+    request_user.set_username(username)
     
-    if create_user(username,password):
-        return make_response("200 OK!", HTTPStatus.OK.value)
+    if create_user(request_user.get_username(),password):
+        response = make_response(jsonify({"status" : "success",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
-        return make_response("400 NO!", HTTPStatus.NOT_FOUND.value)
+        response = make_response(jsonify({"status" : "fail",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
+
+    return response
+
+@user_api.route("/user-delete", methods=['DELETE'])
+@cross_origin()
+def delete_request():
+    print("backend hit")
+    # extract request json
+    data = request.get_json()
+
+    # extract user & pass vals
+    username = data.get("username")
+    password = data.get("password")
+
+    request_user = User()
+    request_user.set_password(password)
+    request_user.set_username(username)
+
+    if delete_user(request_user.get_username(),password):
+        response = make_response(jsonify({"status" : "success",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
+    else:
+        response = make_response(jsonify({"status" : "fail",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
+        
+    return response
 
 @user_api.route("/user-login", methods=['POST'])
 @cross_origin()
@@ -35,8 +68,10 @@ def login_request():
     password = request_body.get("password")
 
     if valid_login(username, password):
-        response = make_response("Login Success OK!", HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "success",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
-        response = make_response("User not found/Wrong Username or Password", HTTPStatus.OK.value)
+        response = make_response(jsonify({"status" : "fail",
+                                          "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
 
     return response

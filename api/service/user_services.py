@@ -3,6 +3,7 @@ from api.model.db_models import UserAccountTable
 from sqlalchemy.sql import func
 import hashlib
 import re
+import pdb
 
 #Name: create_user
 #Expects: Two Strings. User and Pass correlating to the Username and Password of the signup
@@ -23,7 +24,15 @@ def create_user(User,Pass):
         db.session.commit()
         userCreated = True
 
-    return userCreated
+    return userCreated #userCreated
+
+def delete_user(usr,ps):
+    if valid_login(usr,ps):
+        db.session.delete(db.session.query(UserAccountTable).filter(UserAccountTable.username==usr).one())
+        db.session.commit()
+        return True
+    else:
+        return False
     
 #simple database query to see if the user already exists (we only need the user not the pass)
 def user_exists(usr):
@@ -31,7 +40,10 @@ def user_exists(usr):
     return (existsTest != None)
 
 def valid_login(usr, pw):
-    user = db.session.execute(db.select(UserAccountTable).filter_by(username=usr,password=pw)).scalar()
+    user = None
+    if authenticate(usr, pw):
+        hashed_pass = hashlib.sha256(pw.encode()).hexdigest()
+        user = db.session.execute(db.select(UserAccountTable).filter_by(username=usr,password=hashed_pass)).scalar()
     return (user != None)
 
 #need to do this in person
@@ -39,21 +51,28 @@ def authenticate(usr,ps):
     def check_user(username):
         # Username must be between 3 to 20 characters long
         # and contain only letters, numbers, and underscores
-        return (
-            (3 <= len(username) <= 20) and
-            (re.match(r'^\w+$', username) != None)
-            )
+        if (username != None):
+            return (
+                (3 <= len(username) <= 20) and
+                (re.match(r'^\w+$', username) != None)
+                )
+        else:
+            return False
     def check_pass(password):
         # Password must be at least 8 characters long
         # and contain at least one digit, one uppercase letter,
         # one lowercase letter, and one special character
-        return not (
-            (len(password) <= 8) or
-            (re.search(r'\d', password) == None) or
-            (re.search(r'[!@#$%^&*(),.?":{}|<>]', password) == None) or
-            (re.search(r'[A-Z]', password) == None) or
-            (re.search(r'[a-z]', password) == None)
-            )
+        if (password != None):
+            return not (
+                (len(password) < 8) or
+                (re.search(r'\d', password) == None) or
+                (re.search(r'[!@#$%^&*(),.?":{}|<>]', password) == None) or
+                (re.search(r'[A-Z]', password) == None) or
+                (re.search(r'[a-z]', password) == None)
+                )
+        else:
+            return False
 
     #Checks both the username and the password and returns if both of them are valid
+
     return check_user(usr) and check_pass(ps)

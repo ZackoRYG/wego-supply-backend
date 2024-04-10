@@ -14,8 +14,8 @@ def create_app() -> Flask:
     with app.app_context():
         db.create_all()
 
-    app.register_blueprint(vehicle_api, url_prefix = '/vehicles')
-    app.register_blueprint(user_api, url_prefix = '/user')
+    app.register_blueprint(vehicle_api, url_prefix = '/api/vehicles')
+    app.register_blueprint(user_api, url_prefix = '/api/user')
     return app
 
 if __name__ == "__main__":
