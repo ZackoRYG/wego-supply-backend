@@ -18,11 +18,9 @@ def user_signup():
     username = data.get("username")
     password = data.get("password")
 
-    request_user = User()
-    request_user.set_password(password)
-    request_user.set_username(username)
+    request_user = User(username, password)
     
-    if create_user(request_user.get_username(),password):
+    if create_user(request_user):
         response = make_response(jsonify({"status" : "success",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
@@ -42,11 +40,9 @@ def delete_request():
     username = data.get("username")
     password = data.get("password")
 
-    request_user = User()
-    request_user.set_password(password)
-    request_user.set_username(username)
+    request_user = User(username,password)
 
-    if delete_user(request_user.get_username(),password):
+    if delete_user(request_user):
         response = make_response(jsonify({"status" : "success",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
@@ -67,7 +63,9 @@ def login_request():
     username = request_body.get("username")
     password = request_body.get("password")
 
-    if valid_login(username, password):
+    request_user = User(username, password)
+
+    if valid_login(request_user):
         response = make_response(jsonify({"status" : "success",
                                           "HTTP Status" : HTTPStatus.OK.value}), HTTPStatus.OK.value)
     else:
