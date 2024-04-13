@@ -1,10 +1,7 @@
-import json
 from http import HTTPStatus
-from flask import Flask, request, jsonify, Blueprint, make_response
-from api.model.db_initialization import db
-from api.model.db_models import VehicleTable
+from flask import request, jsonify, Blueprint, make_response
 from flask_cors import cross_origin, CORS
-from api.service.vehicle_services import *
+from supply_backend.api.service.vehicle_services import *
 
 vehicle_api = Blueprint('vehicle', __name__)
 @vehicle_api.route("/vehicle-request", methods=['POST'])

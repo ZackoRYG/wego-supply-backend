@@ -1,5 +1,5 @@
-from api.model.db_initialization import db
-from api.model.db_models import VehicleTable
+from cs_backend.api.model.db_initialization import db
+from supply_backend.api.model.db_models import VehicleTable
 from sqlalchemy.sql import func
 
 # Count Order POST
