@@ -1,5 +1,5 @@
 import pytest
-from cs_backend.app import create_app
+from supply_backend.app import create_app
 
 @pytest.fixture
 def app():
