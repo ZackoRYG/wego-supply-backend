@@ -7,13 +7,13 @@ class Vehicle_Status(Enum):
     ERROR = "ERROR"
 
 class Vehicle:
-    def __init__(self, ID, lat, lon, status=Vehicle_Status.IDLE):
+    def __init__(self, ID, lat, lon, route = list(), status = Vehicle_Status.IDLE):
         self.ID = ID
         self.lat = lat
         self.lon = lon
         self.status = status
         self.is_running = False
-        self.route = list()
+        self.route = route
 
     def start(self):
         if not self.is_running:
