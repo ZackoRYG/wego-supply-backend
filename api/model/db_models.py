@@ -16,10 +16,11 @@ class VehicleTable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
-    isRunning = db.Column(db.Boolean, nullable=False)
+    status = db.Column(db.String(255), nullable=False)
+    route = db.Column(db.String(2048))
 
     def __repr__(self):
-        return f'<Latitude> {self.latitude} <Longitude> {self.longitude} <IsRunning> {self.isRunning}'
+        return f'<Latitude> {self.latitude} <Longitude> {self.longitude} <Status> {self.status}'
     
 # with app.app_context():
 #     db.create_all()
@@ -32,9 +33,10 @@ class VehicleTable(db.Model):
 #     PRIMARY KEY (id)
 # );
 # CREATE TABLE vehicle_table(
-#     id INT AUTO_INCREMENT,
+#     id INT,
 #     latitude FLOAT NOT NULL,
 #     longitude FLOAT NOT NULL,
-#     is_running BOOLEAN NOT NULL DEFAULT FALSE,
+#     status VARCHAR(255) NOT NULL,
+#     route VARCHAR(2048) NOT NULL,
 #     PRIMARY KEY (id)
 # );
