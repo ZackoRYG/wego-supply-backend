@@ -1,6 +1,6 @@
 import pytest #testing
-from api.object.fleet import Fleet
-from api.object.fleet_manager import FleetManager
+from supply_backend.api.object.fleet import Fleet
+from supply_backend.api.object.fleet_manager import FleetManager
 
 @pytest.fixture
 def fleet_manager():
