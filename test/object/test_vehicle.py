@@ -1,6 +1,6 @@
 import pytest
 
-from supply_backend.api.object.vehicle import Vehicle
+from api.object.vehicle import Vehicle
 
 @pytest.fixture
 def vehicle():
