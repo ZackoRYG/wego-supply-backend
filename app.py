@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import DB_CONNECTION, PORT
-from api.model.db_initialization import db
-from api.model.db_models import *
-from api.route.cs.vehicle_route import vehicle_api
-from api.route.cs.user_route import user_api
+from cs_backend.api.model.db_initialization import db
+from cs_backend.api.model.db_models import *
+from supply_backend.api.route.vehicle_route import vehicle_api
+from cs_backend.api.route.user_route import user_api
 
 def create_app() -> Flask:
     app = Flask(__name__)
