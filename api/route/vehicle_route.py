@@ -1,4 +1,3 @@
-import json
 from http import HTTPStatus
 from flask import Flask, request, jsonify, Blueprint, make_response
 from flask_cors import cross_origin, CORS

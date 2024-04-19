@@ -1,4 +1,5 @@
 import pytest
+
 from api.object.vehicle import Vehicle
 
 @pytest.fixture

@@ -10,23 +10,4 @@ class VehicleTable(db.Model):
     route = db.Column(db.String(2048))
 
     def __repr__(self):
-        return f'<Latitude> {self.latitude} <Longitude> {self.longitude} <Status> {self.status}'
-    
-# with app.app_context():
-#     db.create_all()
-
-# userAccount
-# CREATE TABLE user_account_table(
-#     id INT AUTO_INCREMENT,
-#     username VARCHAR(255) NOT NULL,
-#     password VARCHAR(255) NOT NULL,
-#     PRIMARY KEY (id)
-# );
-# CREATE TABLE vehicle_table(
-#     id INT,
-#     latitude FLOAT NOT NULL,
-#     longitude FLOAT NOT NULL,
-#     status VARCHAR(255) NOT NULL,
-#     route VARCHAR(2048) NOT NULL,
-#     PRIMARY KEY (id)
-# );
+        return f'<Latitude> {self.latitude} <Longitude> {self.longitude} <IsRunning> {self.isRunning}'

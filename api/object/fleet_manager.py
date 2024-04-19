@@ -1,4 +1,4 @@
-from api.object.user import User
+# from cs_backend.api.object.user import User
 
 class FleetManager:
     def __init__(self):

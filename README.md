@@ -1,6 +1,6 @@
-# WeGo Demand Backend
+# WeGo Supply Backend
 
-A guide to the WeGo demand Flask backend
+A guide to the WeGo Supply Flask backend
 
 ## Table of Contents
 
@@ -33,7 +33,6 @@ config.py is for all of your system-nonspecific constants. That is, what databas
     DB_NAME = 'test21-supply'
     DB_URI = f'sqlite://{DB_NAME}.db'
     SECRET_KEY = 'FILL ME IN'
-    WEGO_SUPPLY = 'FILL ME IN'
     DEBUG = True
     ```
     - DB_URI specifies the URI for the DBMS and DB name you will be using
