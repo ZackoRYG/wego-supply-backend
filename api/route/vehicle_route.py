@@ -17,9 +17,13 @@ def vehicle_request():
     dest_lat = request_body.get('dest_lat')
     dest_lon = request_body.get('dest_lon')
 
-    vin = request_vehicle()
+    vin = request_vehicle(start_lon,start_lat,dest_lon,dest_lat).ID
 
-    return make_response("200 OK!", HTTPStatus.OK.value)
+    return make_response(
+        jsonify({
+            'VIN': vin,
+            'HTTP Status': HTTPStatus.OK.value
+        }), HTTPStatus.OK.value)
 
 @vehicle_api.route("/vehicle-add", methods=['POST'])
 @cross_origin()
@@ -34,11 +38,12 @@ def vehicle_add():
 
     new_vehicle = Vehicle(vin, lat, lon)
 
-    return jsonify(
+    return make_response(jsonify(
         {
-            "count_sum": sum
+            "status": 'fail',
+            'HTTP Status': HTTPStatus.OK.value
         }
-    )
+    ), HTTPStatus.OK.value)
 
 @vehicle_api.route("/vehicle-heartbeat", methods=['POST'])
 @cross_origin()
