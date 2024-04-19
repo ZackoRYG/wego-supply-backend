@@ -17,6 +17,7 @@ pipelines:
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - pip install pytest
             - pip install -e .
+            - python __init__.py
             - pytest -v ./test/* --junitxml=test-reports/report.xml
       - step:
           name: Test Coverage
