@@ -4,6 +4,7 @@ from flask_cors import CORS
 from cs_backend.config import DB_CONNECTION, PORT
 from cs_backend.api.model.db_initialization import db
 from cs_backend.api.model.db_models import *
+from supply_backend.api.model.db_models import *
 from supply_backend.api.route.vehicle_route import vehicle_api
 from cs_backend.api.route.user_route import user_api
 

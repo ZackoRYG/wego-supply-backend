@@ -34,13 +34,18 @@ def vehicle_add():
     vin = request_body.get('vin')
     lon = request_body.get('veh_lon')
     lat = request_body.get('veh_lat')
-    status = request_body.get('veh_status')
+    status = Vehicle_Status.IDLE #request_body.get('veh_status')
 
-    new_vehicle = Vehicle(vin, lat, lon)
+    new_vehicle = Vehicle(vin, lat, lon, route= None, status= status)
+
+    if vehicle_add(new_vehicle):
+        status = 'success'
+    else:
+        status = 'fail'
 
     return make_response(jsonify(
         {
-            "status": 'fail',
+            "status": status,
             'HTTP Status': HTTPStatus.OK.value
         }
     ), HTTPStatus.OK.value)
