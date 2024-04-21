@@ -10,7 +10,7 @@ vehicle_api = Blueprint('vehicle', __name__)
 @cross_origin()
 def vehicle_request():
     print("backend hit")
-    request_body = request.get_json
+    request_body = request.get_json()
 
     start_lat = request_body.get('start_lat')
     start_lon = request_body.get('start_lon')
@@ -27,9 +27,8 @@ def vehicle_request():
 
 @vehicle_api.route("/vehicle-add", methods=['POST'])
 @cross_origin()
-def vehicle_add():
-    request_body = request.get_json
-    request.get()
+def vehicle_add_request():
+    request_body = request.get_json()
 
     vin = request_body.get('vin')
     lon = request_body.get('veh_lon')
@@ -53,7 +52,7 @@ def vehicle_add():
 @vehicle_api.route("/vehicle-heartbeat", methods=['POST'])
 @cross_origin()
 def vehicle_heartbeat():
-    data = request.get_json
+    data = request.get_json()
 
     vehicleID = data.get('VIN')
     lon = data.get('veh_lon')

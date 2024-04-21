@@ -6,6 +6,7 @@ from cs_backend.api.model.db_initialization import db
 from cs_backend.api.model.db_models import *
 from supply_backend.api.model.db_models import *
 from supply_backend.api.route.vehicle_route import vehicle_api
+from supply_backend.api.route.data_route import data_api
 from cs_backend.api.route.user_route import user_api
 
 def create_app() -> Flask:
@@ -19,9 +20,10 @@ def create_app() -> Flask:
         db.create_all()
 
     app.register_blueprint(vehicle_api, url_prefix = '/api/vehicles')
+    app.register_blueprint(data_api, url_prefix = '/api/data')
     app.register_blueprint(user_api, url_prefix = '/api/user')
     return app
 
-# if __name__ == "__main__":
-#     app = create_app()
-#     app.run(debug=True, port=PORT)
+if __name__ == "__main__":
+    app = create_app()
+    app.run(debug=True, port=PORT)
