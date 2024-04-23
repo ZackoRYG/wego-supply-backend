@@ -1,5 +1,5 @@
 from cs_backend.api.model.db_initialization import db
-from supply_backend.api.model.db_models import VehicleTable
+from supply_backend.api.model.db_models import VehicleTable,DeliveryTable
 from sqlalchemy.sql import func
 from api.object.vehicle import *
 import requests, json
@@ -47,11 +47,12 @@ def vehicle_heartbeat_status(vehicle_id):
     obj = None
     db_selection = db.session.query(VehicleTable).filter_by(id=vehicle_id).scalar()
     if (db_selection != None):
+        listRoute = routeToList(db_selection.route) # Helper Function for converting route string. to list
         obj = Vehicle(
             vehicle_id,
             db_selection.latitude,
             db_selection.longitude,
-            db_selection.route,
+            listRoute,
             db_selection.status
             )
         
@@ -76,3 +77,21 @@ def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
         db.session.commit()
 
     return obj
+
+def routeToList(string):
+    result = string.split(",")
+    result[0],result[len(result)-1] = result[0][1:],result[len(result)-1][:1]
+    return result
+
+def add_delivery(vehicle_id,start_lat,start_lon,end_lat,end_lon):
+    db.session.add(
+        DeliveryTable(
+            vehicle_id = vehicle_id,
+            start_latitude = start_lat,
+            start_longitude = start_lon,
+            end_latitude = end_lat,
+            end_longitude = end_lon
+        )
+        )
+    db.session.commit()
+    return 
