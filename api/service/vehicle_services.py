@@ -79,8 +79,18 @@ def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
     return obj
 
 def routeToList(string):
+    #this part converts the string to an array of strings
     result = string.split(",")
-    result[0],result[len(result)-1] = result[0][1:],result[len(result)-1][:1]
+    result[0],result[len(result)-1] = result[0][1:],result[len(result)-1][:-1]
+    for i in range(0,len(result),2):
+        result[i] = result[i]+","+result[i+1]
+        result[i] = result[i].strip()
+    result = result[::2]
+    #this part takes each element and converts it from a string to an array of floats
+    for j in range(0,len(result)):
+        result[j] = result[j][1:][:-1].split(",")
+        result[j][0],result[j][1] = float(result[j][0]),float(result[j][1])
+    #if anything breaks we are doomed
     return result
 
 def add_delivery(vehicle_id,start_lat,start_lon,end_lat,end_lon):
