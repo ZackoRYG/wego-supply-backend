@@ -48,12 +48,11 @@ def get_vehicle_by_id(vehicle_id):
     obj = None
     db_selection = db.session.query(VehicleTable).filter_by(id=vehicle_id).scalar()
     if (db_selection != None):
-        listRoute = routeToList(db_selection.route) # Helper Function for converting route string. to list
         obj = Vehicle(
             vehicle_id,
             db_selection.latitude,
             db_selection.longitude,
-            listRoute,
+            db_selection.route,
             db_selection.status
             )
         
@@ -67,7 +66,7 @@ def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
             db_selection.id,
             db_selection.latitude,
             db_selection.longitude,
-            db_selection.route,
+            db_selection.route
             )
 
         """ route_json = requests.get(f'https://api.mapbox.com/directions/v5/mapbox/driving/{start_lon},{start_lat};{dest_lon},{dest_lat}?steps=true&geometries=geojson&access_token={my_token}').json()
@@ -82,6 +81,7 @@ def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
 
     return obj
 
+# Helper Function for converting route string to list
 def routeToList(string):
     #this part converts the string to an array of strings
     result = string.split(",")
