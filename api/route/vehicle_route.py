@@ -75,11 +75,14 @@ def vehicle_heartbeat():
 
     delivery = get_delivery(vehicleID)
 
-    response = make_response(jsonify({
-        'start_lat': delivery.start_latitude,
-        'start_lon': delivery.start_longitude,
-        'dest_lat': delivery.destination_latitude,
-        'dest_lon': delivery.destination_longitude
-    }), HTTPStatus.OK.value)
+    if delivery != None:
+        response = make_response(jsonify({
+            'start_lat': delivery.start_latitude,
+            'start_lon': delivery.start_longitude,
+            'dest_lat': delivery.destination_latitude,
+            'dest_lon': delivery.destination_longitude
+        }), HTTPStatus.OK.value)
+    else:
+        response = make_response(HTTPStatus.ACCEPTED.value)
 
     return response
