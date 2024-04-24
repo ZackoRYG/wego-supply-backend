@@ -63,7 +63,7 @@ def vehicle_add_request():
 def vehicle_heartbeat():
     data = request.get_json()
 
-    vehicleID = data.get('VIN')
+    vehicleID = data.get('vin')
     lon = data.get('veh_lon')
     lat = data.get('veh_lat')
     status = data.get('veh_status')
@@ -76,7 +76,7 @@ def vehicle_heartbeat():
     delivery = get_delivery(vehicleID)
 
     response = make_response(jsonify({
-        'start_lati': delivery.start_latitude,
+        'start_lat': delivery.start_latitude,
         'start_lon': delivery.start_longitude,
         'dest_lat': delivery.destination_latitude,
         'dest_lon': delivery.destination_longitude
