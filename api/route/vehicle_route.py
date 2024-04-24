@@ -2,6 +2,7 @@ from http import HTTPStatus
 from flask import Flask, request, jsonify, Blueprint, make_response
 from flask_cors import cross_origin, CORS
 from supply_backend.api.object.vehicle import *
+from supply_backend.api.object.delivery import *
 from supply_backend.api.service.vehicle_services import *
 
 
@@ -17,11 +18,19 @@ def vehicle_request():
     dest_lat = request_body.get('dest_lat')
     dest_lon = request_body.get('dest_lon')
 
-    vin = request_vehicle(start_lon,start_lat,dest_lon,dest_lat).ID
+    requested_vehicle = request_vehicle(start_lon,start_lat,dest_lon,dest_lat)
+
+    if requested_vehicle != None:
+        status = 'success'
+        vin = requested_vehicle.ID
+    else:
+        status = 'fail'
+        vin = -1
 
     return make_response(
         jsonify({
             'VIN': vin,
+            'status': status,
             'HTTP Status': HTTPStatus.OK.value
         }), HTTPStatus.OK.value)
 
@@ -58,13 +67,19 @@ def vehicle_heartbeat():
     lon = data.get('veh_lon')
     lat = data.get('veh_lat')
     status = data.get('veh_status')
+    route = data.get('route')
 
-    vehicle = Vehicle(vehicleID, lat, lon)
+    vehicle = Vehicle(vehicleID, lat, lon, route, status)
 
-    update_vehicle_status()
+    update_vehicle_status(vehicle)
+
+    delivery = get_delivery(vehicleID)
 
     response = make_response(jsonify({
-        'route': ''
-    }))
+        'start_lati': delivery.start_latitude,
+        'start_lon': delivery.start_longitude,
+        'dest_lat': delivery.destination_latitude,
+        'dest_lon': delivery.destination_longitude
+    }), HTTPStatus.OK.value)
 
     return response

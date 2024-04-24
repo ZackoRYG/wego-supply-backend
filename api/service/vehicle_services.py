@@ -2,6 +2,7 @@ from cs_backend.api.model.db_initialization import db
 from supply_backend.api.model.db_models import VehicleTable,DeliveryTable
 from sqlalchemy.sql import func
 from api.object.vehicle import *
+from api.object.delivery import *
 import requests, json
 
 my_token = 'pk.eyJ1IjoiZmlubjA3IiwiYSI6ImNsc2RzeWs5bDAwZ3gyanBqNGNoYmFvejYifQ.BT-DZloFB8-nheNJvf_0Ag'
@@ -43,7 +44,7 @@ def vehicle_exists(vehicle: Vehicle):
     existsTest = db.session.execute(db.select(VehicleTable).filter_by(id=vin)).scalar()
     return (existsTest != None)
 
-def vehicle_heartbeat_status(vehicle_id):
+def get_vehicle_by_id(vehicle_id):
     obj = None
     db_selection = db.session.query(VehicleTable).filter_by(id=vehicle_id).scalar()
     if (db_selection != None):
@@ -59,6 +60,7 @@ def vehicle_heartbeat_status(vehicle_id):
     return obj
 
 def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
+    obj = None
     db_selection = db.session.query(VehicleTable).filter_by(status=Vehicle_Status.IDLE.value).first()
     if (db_selection != None):
         obj = Vehicle(
@@ -68,13 +70,15 @@ def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
             db_selection.route,
             )
 
-        route_json = requests.get(f'https://api.mapbox.com/directions/v5/mapbox/driving/{start_lon},{start_lat};{dest_lon},{dest_lat}?steps=true&geometries=geojson&access_token={my_token}').json()
+        """ route_json = requests.get(f'https://api.mapbox.com/directions/v5/mapbox/driving/{start_lon},{start_lat};{dest_lon},{dest_lat}?steps=true&geometries=geojson&access_token={my_token}').json()
         route = json.dumps(route_json.get('routes')[0].get('geometry').get('coordinates'))
 
         chosenVehicle = db.session.query(VehicleTable).filter_by(id=db_selection.id).scalar()
-        chosenVehicle.route=route
+        chosenVehicle.route=route 
 
-        db.session.commit()
+        db.session.commit()"""
+
+        add_delivery(obj.ID, start_lat, start_lon, dest_lat, dest_lon)
 
     return obj
 
@@ -105,3 +109,26 @@ def add_delivery(vehicle_id,start_lat,start_lon,end_lat,end_lon):
         )
     db.session.commit()
     return 
+
+def update_vehicle_status(vehicle: Vehicle):
+    if vehicle_exists(vehicle):
+        db_selection = db.session.query(VehicleTable).filter_by(id=vehicle.ID).scalar()
+        db_selection.latitude = vehicle.lat
+        db_selection.longitude = vehicle.lon
+        db_selection.status = vehicle.status
+        db_selection.route = vehicle.route 
+
+        db.session.commit()
+
+def get_delivery(vehicle_id):
+    obj = None
+    db_selection = db.session.query(DeliveryTable).filter_by(vehicle_id=vehicle_id).first()
+    if (db_selection != None):
+        obj = Delivery(
+            db_selection.vehicle_id,
+            db_selection.start_longitude,
+            db_selection.start_latitude,
+            db_selection.end_longitude,
+            db_selection.end_latitude
+            )
+    return obj

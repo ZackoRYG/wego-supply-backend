@@ -6,6 +6,6 @@ from api.object.vehicle import *
 import requests, json
 
 def getVehicle(vin):
-    vehicle = vehicle_heartbeat_status(vin)
+    vehicle = get_vehicle_by_id(vin)
 
     return vehicle
