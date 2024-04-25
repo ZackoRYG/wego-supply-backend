@@ -1,8 +1,8 @@
 from cs_backend.api.model.db_initialization import db
 from supply_backend.api.model.db_models import VehicleTable,DeliveryTable
 from sqlalchemy.sql import func
-from api.object.vehicle import *
-from api.object.delivery import *
+from supply_backend.api.object.vehicle import *
+from supply_backend.api.object.delivery import *
 import requests, json
 
 my_token = 'pk.eyJ1IjoiZmlubjA3IiwiYSI6ImNsc2RzeWs5bDAwZ3gyanBqNGNoYmFvejYifQ.BT-DZloFB8-nheNJvf_0Ag'

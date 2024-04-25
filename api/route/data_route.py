@@ -14,8 +14,11 @@ def vehicle_route_request(vin):
     vehicle = getVehicle(vin)
 
     if vehicle != None:
-        route = json.loads(vehicle.route)
         status = 'success'
+        if vehicle.route is None:
+            route = {}
+        else:
+            route = json.loads(vehicle.route)
     else:
         route = None
         status = 'fail'
