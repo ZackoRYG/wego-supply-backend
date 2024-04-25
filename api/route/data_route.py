@@ -4,31 +4,33 @@ from flask_cors import cross_origin, CORS
 from supply_backend.api.service.data_services import *
 
 data_api = Blueprint('data', __name__)
-@data_api.route("/vehicle-route-request/<vin>", methods=['GET'])
+@data_api.route("/get-all-vehicles/", methods=['GET'])
 @cross_origin()
-def vehicle_route_request(vin):
+def get_all_vehicles():
     #request_body = request.get_json()
 
     #vin = request_body.get('vin')
 
-    vehicle = getVehicle(vin)
+    vehicles = query_all_vehicles()
+    vehicles_dict_list = []
 
-    if vehicle != None:
+    if vehicles != None:
+        for vehicle in vehicles:
+            vehicle_dict = {
+                "vin": vehicle.ID,
+                "veh_lat": vehicle.lat,
+                "veh_lon": vehicle.lon,
+                "route": vehicle.route,
+                "status": vehicle.status
+            }
+            print(vehicle_dict)
+            vehicles_dict_list.append(vehicle_dict)
+
         status = 'success'
-        if vehicle.route is None:
-            route = {}
-        else:
-            route = json.loads(vehicle.route)
+
     else:
-        route = None
         status = 'fail'
     
-    response = make_response(
-        jsonify({
-            'status': status,
-            'route': route,
-            'HTTP Status': HTTPStatus.OK.value
-        }), HTTPStatus.OK.value
-    )
+    response = make_response(vehicles_dict_list, HTTPStatus.OK.value)
 
     return response

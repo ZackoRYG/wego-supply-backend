@@ -44,6 +44,24 @@ def vehicle_exists(vehicle: Vehicle):
     existsTest = db.session.execute(db.select(VehicleTable).filter_by(id=vin)).scalar()
     return (existsTest != None)
 
+def query_all_vehicles():
+    vehicles = []
+    db_vehicles = db.session.query(VehicleTable)
+    for vehicle in db_vehicles:
+        if (vehicle != None):
+            vehicles.append(
+                Vehicle(
+                vehicle.id,
+                vehicle.latitude,
+                vehicle.longitude,
+                vehicle.route,
+                vehicle.status
+                )
+            )
+    
+    return vehicles
+
+# DEPRECATED
 def get_vehicle_by_id(vehicle_id):
     obj = None
     db_selection = db.session.query(VehicleTable).filter_by(id=vehicle_id).scalar()
@@ -119,6 +137,9 @@ def update_vehicle_status(vehicle: Vehicle):
         db_selection.route = vehicle.route 
 
         db.session.commit()
+        return True
+    return False
+
 
 def get_delivery(vehicle_id):
     obj = None

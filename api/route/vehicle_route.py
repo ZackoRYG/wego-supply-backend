@@ -62,8 +62,10 @@ def vehicle_add_request():
 @cross_origin()
 def vehicle_heartbeat():
     data = request.get_json()
+    print(data)
 
     vehicleID = data.get('vin')
+    print(vehicleID)
     lon = data.get('veh_lon')
     lat = data.get('veh_lat')
     status = data.get('veh_status')
@@ -71,7 +73,7 @@ def vehicle_heartbeat():
 
     vehicle = Vehicle(vehicleID, lat, lon, route, status)
 
-    update_vehicle_status(vehicle)
+    return_val = update_vehicle_status(vehicle)
 
     delivery = get_delivery(vehicleID)
 
@@ -83,6 +85,10 @@ def vehicle_heartbeat():
             'dest_lon': delivery.destination_longitude
         }), HTTPStatus.OK.value)
     else:
-        response = make_response(HTTPStatus.ACCEPTED.value)
+        response = make_response(
+        jsonify({
+            'Updated': return_val,
+            'HTTP Status': HTTPStatus.ACCEPTED.value
+        }), HTTPStatus.ACCEPTED.value)
 
     return response
