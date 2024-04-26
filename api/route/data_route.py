@@ -20,7 +20,9 @@ def get_all_vehicles():
                 "vin": vehicle.ID,
                 "veh_lat": vehicle.lat,
                 "veh_lon": vehicle.lon,
-                "route": vehicle.route,
+                # since vehicle.route is string represented as an array
+                # we must load it as an array
+                "route": json.loads(vehicle.route),
                 "status": vehicle.status
             }
             print(vehicle_dict)
