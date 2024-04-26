@@ -4,7 +4,7 @@ from flask_cors import cross_origin, CORS
 from supply_backend.api.service.data_services import *
 
 data_api = Blueprint('data', __name__)
-@data_api.route("/get-all-vehicles/", methods=['GET'])
+@data_api.route("/get-all-vehicles", methods=['GET'])
 @cross_origin()
 def get_all_vehicles():
     #request_body = request.get_json()
