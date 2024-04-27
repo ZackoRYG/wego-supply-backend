@@ -62,7 +62,7 @@ def vehicle_add_request():
 @cross_origin()
 def vehicle_heartbeat():
     data = request.get_json()
-    print(data)
+    print("!!! VEHICLE DATA RECIEVED: " + str(data))
 
     vehicleID = data.get('vin')
     print(vehicleID)
