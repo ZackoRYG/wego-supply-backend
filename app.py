@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from cs_backend.config import DB_CONNECTION, PORT, DEBUG
+from config import DB_CONNECTION, PORT, DEBUG
 from cs_backend.api.model.db_initialization import db
 from cs_backend.api.model.db_models import *
 from supply_backend.api.model.db_models import *
