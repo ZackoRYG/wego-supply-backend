@@ -88,6 +88,10 @@ def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
             db_selection.route
             )
 
+        db_selection.status = VehicleStatus.ON_THE_WAY.value
+
+        db.session.commit()
+
         """ route_json = requests.get(f'https://api.mapbox.com/directions/v5/mapbox/driving/{start_lon},{start_lat};{dest_lon},{dest_lat}?steps=true&geometries=geojson&access_token={my_token}').json()
         route = json.dumps(route_json.get('routes')[0].get('geometry').get('coordinates'))
 
