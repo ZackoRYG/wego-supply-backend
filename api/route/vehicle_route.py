@@ -23,16 +23,18 @@ def vehicle_request():
     if requested_vehicle != None:
         status = 'success'
         vin = requested_vehicle.ID
+        http_status = HTTPStatus.OK.value
     else:
         status = 'fail'
         vin = -1
+        http_status = HTTPStatus.BAD_REQUEST.value
 
     return make_response(
         jsonify({
             'VIN': vin,
             'status': status,
-            'HTTP Status': HTTPStatus.OK.value
-        }), HTTPStatus.OK.value)
+            'HTTP Status': http_status 
+        }), http_status)
 
 @vehicle_api.route("/vehicle-add", methods=['POST'])
 @cross_origin()
