@@ -1,9 +1,20 @@
+from enum import Enum
+
+class VehicleStatus(Enum):
+    IDLE = "IDLE"
+    ON_THE_WAY = "OTW"
+    DELIVERY = "DELIVERY"
+    MAINTENANCE = "MAINTENANCE"
+    ERROR = "ERROR"
+
 class Vehicle:
-    def __init__(self, ID, lat, lon):
+    def __init__(self, ID, lat, lon, route, status = VehicleStatus.IDLE):
         self.ID = ID
         self.lat = lat
         self.lon = lon
+        self.status = status
         self.is_running = False
+        self.route = route
 
     def start(self):
         if not self.is_running:
@@ -30,3 +41,4 @@ class Vehicle:
 
     def get_location(self):
         return [self.lat, self.lon]
+    
