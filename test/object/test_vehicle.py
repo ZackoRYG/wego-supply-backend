@@ -4,7 +4,7 @@ from api.object.vehicle import Vehicle
 
 @pytest.fixture
 def vehicle():
-    return Vehicle(ID=1, lat=0.0, lon=0.0)
+    return Vehicle(ID=1, lat=0.0, lon=0.0, route=[])
 
 def test_start(vehicle):
     vehicle.start()
