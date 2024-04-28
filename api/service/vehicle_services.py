@@ -79,7 +79,7 @@ def get_vehicle_by_id(vehicle_id):
 
 def request_vehicle(start_lon, start_lat,dest_lon, dest_lat):
     obj = None
-    db_selection = db.session.query(VehicleTable).filter_by(status=Vehicle_Status.IDLE.value).first()
+    db_selection = db.session.query(VehicleTable).filter_by(status=VehicleStatus.IDLE.value).first()
     if (db_selection != None):
         obj = Vehicle(
             db_selection.id,

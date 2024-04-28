@@ -74,7 +74,7 @@ def vehicle_heartbeat():
     match data.get('veh_status'):
         case VehicleStatus.IDLE.value:
             status = VehicleStatus.IDLE
-        case VehicleStatus.ON_THE_WAY:
+        case VehicleStatus.ON_THE_WAY.value:
             status = VehicleStatus.ON_THE_WAY
         case VehicleStatus.DELIVERY.value:
             status = VehicleStatus.DELIVERY
