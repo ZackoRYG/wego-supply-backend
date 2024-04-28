@@ -31,7 +31,7 @@ def vehicle_add(vehicle: Vehicle):
                 latitude = vehicle.lat,
                 longitude = vehicle.lon,
                 status = vehicle.status.value,
-                route = None
+                route = []
             )
         )
         db.session.commit()
