@@ -9,7 +9,7 @@ def fleet():
 
 @pytest.fixture
 def vehicle():
-    return Vehicle(1, lat=10.0, lon=20.0)
+    return Vehicle(1, lat=10.0, lon=20.0, route=[])
 
 def test_add_vehicle(fleet, vehicle):
     assert fleet.add_vehicle(vehicle) == True
@@ -24,9 +24,9 @@ def test_remove_nonexistent_vehicle(fleet, vehicle):
     assert fleet.remove_vehicle(vehicle) == False
 
 def test_get_nearest_vehicle(fleet):
-    vehicle1 = Vehicle(1, lat=10.0, lon=20.0)
-    vehicle2 = Vehicle(2, lat=20.0, lon=30.0)
-    vehicle3 = Vehicle(3, lat=30.0, lon=40.0)
+    vehicle1 = Vehicle(1, lat=10.0, lon=20.0, route=[])
+    vehicle2 = Vehicle(2, lat=20.0, lon=30.0, route=[])
+    vehicle3 = Vehicle(3, lat=30.0, lon=40.0, route=[])
 
     fleet.add_vehicle(vehicle1)
     fleet.add_vehicle(vehicle2)

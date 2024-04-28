@@ -1,10 +1,10 @@
 import pytest
 from supply_backend.app import create_app
-from supply_backend.api.service.vehicle_services import *
+from api.service.vehicle_services import *
 
 @pytest.fixture
 def app():
-    return create_app().test_app()
+    return create_app().test_client()
 
 def test_add_vehicle(app):
     id = 1001
