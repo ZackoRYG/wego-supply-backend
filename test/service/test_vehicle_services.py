@@ -1,5 +1,5 @@
 import pytest
-from supply_backend.app import create_app
+from app import create_app
 from api.service.vehicle_services import *
 
 @pytest.fixture
