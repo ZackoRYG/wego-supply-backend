@@ -4,13 +4,13 @@ from supply_backend.api.service.vehicle_services import *
 
 @pytest.fixture
 def app():
-    return create_app()
+    return create_app().test_app()
 
 def test_add_vehicle(app):
     id = 1001
     lat = 0
     lon = 0
-    status = Vehicle_Status.IDLE
+    status = VehicleStatus.IDLE
 
     with app.app_context():
         test_vehicle = Vehicle(id, lat, lon, None, status)
