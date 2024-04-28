@@ -1,13 +1,14 @@
 from enum import Enum
 
-class Vehicle_Status(Enum):
+class VehicleStatus(Enum):
     IDLE = "IDLE"
-    DELIVERY = "DELIV"
-    MAINTENANCE = "MAINT"
+    ON_THE_WAY = "OTW"
+    DELIVERY = "DELIVERY"
+    MAINTENANCE = "MAINTENANCE"
     ERROR = "ERROR"
 
 class Vehicle:
-    def __init__(self, ID, lat, lon, route, status = Vehicle_Status.IDLE):
+    def __init__(self, ID, lat, lon, route, status = VehicleStatus.IDLE):
         self.ID = ID
         self.lat = lat
         self.lon = lon
