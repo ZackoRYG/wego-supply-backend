@@ -138,7 +138,9 @@ def update_vehicle_status(vehicle: Vehicle):
         db_selection = db.session.query(VehicleTable).filter_by(id=vehicle.ID).scalar()
         db_selection.latitude = vehicle.lat
         db_selection.longitude = vehicle.lon
-        db_selection.status = vehicle.status.value
+
+        if not (db_selection.status == VehicleStatus.ON_THE_WAY.value and vehicle.status == VehicleStatus.IDLE):
+            db_selection.status = vehicle.status.value
         db_selection.route = vehicle.route 
 
         db.session.commit()
