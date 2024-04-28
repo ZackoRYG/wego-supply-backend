@@ -44,7 +44,7 @@ def vehicle_add_request():
     vin = request_body.get('vin')
     lon = request_body.get('veh_lon')
     lat = request_body.get('veh_lat')
-    status = Vehicle_Status.IDLE #request_body.get('veh_status')
+    status = VehicleStatus.IDLE #request_body.get('veh_status')
 
     new_vehicle = Vehicle(vin, lat, lon, route= None, status= status)
 
@@ -70,7 +70,20 @@ def vehicle_heartbeat():
     print(vehicleID)
     lon = data.get('veh_lon')
     lat = data.get('veh_lat')
-    status = data.get('veh_status')
+
+    match data.get('veh_status'):
+        case VehicleStatus.IDLE.value:
+            status = VehicleStatus.IDLE
+        case VehicleStatus.ON_THE_WAY:
+            status = VehicleStatus.ON_THE_WAY
+        case VehicleStatus.DELIVERY.value:
+            status = VehicleStatus.DELIVERY
+        case VehicleStatus.MAINTENANCE.value:
+            status = VehicleStatus.MAINTENANCE
+        case _:
+            status = VehicleStatus.ERROR
+        
+
     route = data.get('route')
 
     vehicle = Vehicle(vehicleID, lat, lon, route, status)
@@ -79,7 +92,7 @@ def vehicle_heartbeat():
 
     delivery = get_delivery(vehicleID)
 
-    if delivery != None:
+    if delivery != None and vehicle.status == VehicleStatus.IDLE:
         response = make_response(jsonify({
             'start_lat': delivery.start_latitude,
             'start_lon': delivery.start_longitude,
@@ -87,6 +100,8 @@ def vehicle_heartbeat():
             'dest_lon': delivery.destination_longitude
         }), HTTPStatus.OK.value)
     else:
+        if delivery != None and vehicle.status == VehicleStatus.DELIVERY:
+            del_delivery(vehicleID)
         response = make_response(
         jsonify({
             'Updated': return_val,

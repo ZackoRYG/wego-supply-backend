@@ -1,3 +1,4 @@
+from sqlalchemy import delete
 from cs_backend.api.model.db_initialization import db
 from supply_backend.api.model.db_models import VehicleTable,DeliveryTable
 from sqlalchemy.sql import func
@@ -133,7 +134,7 @@ def update_vehicle_status(vehicle: Vehicle):
         db_selection = db.session.query(VehicleTable).filter_by(id=vehicle.ID).scalar()
         db_selection.latitude = vehicle.lat
         db_selection.longitude = vehicle.lon
-        db_selection.status = vehicle.status
+        db_selection.status = vehicle.status.value
         db_selection.route = vehicle.route 
 
         db.session.commit()
@@ -153,3 +154,9 @@ def get_delivery(vehicle_id):
             db_selection.end_latitude
             )
     return obj
+
+def del_delivery(vehicle_id):
+    db_selection = db.session.query(DeliveryTable).filter_by(vehicle_id=vehicle_id).first()
+    if db_selection:
+        db.session.delete(db_selection)
+        db.session.commit()
