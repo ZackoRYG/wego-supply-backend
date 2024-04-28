@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from config import DB_CONNECTION, PORT
+from cs_backend.config import DB_CONNECTION, PORT, DEBUG
 from cs_backend.api.model.db_initialization import db
 from cs_backend.api.model.db_models import *
 from supply_backend.api.model.db_models import *
@@ -16,8 +16,9 @@ def create_app() -> Flask:
 
     CORS(app)
 
-    with app.app_context():
-        db.create_all()
+    if DEBUG:
+        with app.app_context():
+            db.create_all()
 
     app.register_blueprint(vehicle_api, url_prefix = '/api/vehicles')
     app.register_blueprint(data_api, url_prefix = '/api/data')
@@ -26,4 +27,4 @@ def create_app() -> Flask:
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True, port=PORT)
+    app.run(debug=DEBUG, port=PORT)
