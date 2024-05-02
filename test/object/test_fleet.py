@@ -37,3 +37,21 @@ def test_get_nearest_vehicle(fleet):
     nearest_vehicle = fleet.get_nearest_vehicle(location)
 
     assert nearest_vehicle == vehicle1
+
+def test_demo_coverage1():
+    assert False
+
+def test_demo_coverage2():
+    assert False
+
+def test_demo_coverage3():
+    assert False
+
+def test_demo_coverage4():
+    assert False
+
+def test_demo_coverage5():
+    assert False
+
+def test_demo_coverage6():
+    assert False
