@@ -29,7 +29,7 @@ pipelines:
             #   - "*config.py"
             - coverage run -m pytest
             # - coverage xml -o test-reports/coverage.xml
-            - coverage report --fail-under=80
+            - coverage report --fail-under=80 --omit='*/__init__.py'
       # - step:
       #     name: Lint Code
       #     script:
