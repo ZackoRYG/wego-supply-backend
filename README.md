@@ -1,5 +1,7 @@
 # WeGo Supply Backend
 
+WeGo is a TaaS (Transportation as a Service) project that was deployed on a webpage. Users can order items from online shops to have them delivered to them. This repo (along with 3 others) are different components that when combined, will simulate the 2-cloud service web app on your own pc
+
 A guide to the WeGo Supply Flask backend
 
 ## Table of Contents
